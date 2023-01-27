@@ -1,12 +1,3 @@
-/*
- *  Copyright 2023 Nadeesh Dilanga.
- *  All rights reserved. Reproduction or transmission in whole or in part,
- *  in any form or by any means, electronic, mechanical or otherwise, is prohibited
- *  without the prior written consent of the copyright owner.
- *  Author: Nadeesh Dilanga
- *  Date: 12/25/2022
- */
-
 package testcases;
 
 import org.openqa.selenium.By;
@@ -19,7 +10,7 @@ import utilities.Base;
 
 public class Login extends Base {
     LoginPage loginPage;
-    By dashboardPageTitleXpath = By.xpath("//div[@id='app']//h6[text()='Dashboard']");
+    public By dashboardPageTitle = By.xpath("//div[@id='app']//h6[text()='Dashboard']");
 
     @AfterClass
     public void exitBrowser() {
@@ -36,8 +27,8 @@ public class Login extends Base {
         loginPage.setPassword(testDataProperties.propertiesFile.getProperty("password"));
         loginPage.clickLogin();
         String expectedPageTitle = "Dashboard";
-        waitUntilElementIsPresent(dashboardPageTitleXpath);
-        String actualPageTitle = driver.findElement(dashboardPageTitleXpath).getText();
+        waitUntilElementIsPresent(dashboardPageTitle);
+        String actualPageTitle = driver.findElement(dashboardPageTitle).getText();
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "Login test failed.");
     }
     @Test(priority = 2)

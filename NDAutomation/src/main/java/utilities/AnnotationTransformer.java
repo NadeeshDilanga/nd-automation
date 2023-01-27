@@ -1,12 +1,3 @@
-/*
- *  Copyright 2023 Nadeesh Dilanga.
- *  All rights reserved. Reproduction or transmission in whole or in part,
- *  in any form or by any means, electronic, mechanical or otherwise, is prohibited
- *  without the prior written consent of the copyright owner.
- *  Author: Nadeesh Dilanga
- *  Date: 01/13/2023
- */
-
 package utilities;
 
 import org.testng.IAnnotationTransformer;
