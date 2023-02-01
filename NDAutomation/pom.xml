@@ -2,16 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion><!--  -->
+    <modelVersion>4.0.0</modelVersion><!-- -->
 
-    <groupId>nadeesh.automation</groupId><!-- id of the project's group -->
-    <artifactId>NDAutomation</artifactId><!-- id of the artifact (project) -->
-    <version>ND1.0</version><!-- version of the artifact under the specified group -->
+    <groupId>nadeesh.automation</groupId><!--id of the project's group-->
+    <artifactId>NDAutomation</artifactId><!--id of the artifact (project)-->
+    <version>ND1.0</version><!--version of the artifact under the specified group-->
 
     <properties>
-        <maven.compiler.source>19</maven.compiler.source><!-- jdk version -->
-        <maven.compiler.target>19</maven.compiler.target><!-- jdk version -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><!--  -->
+        <maven.compiler.source>19</maven.compiler.source><!--jdk version-->
+        <maven.compiler.target>19</maven.compiler.target><!--jdk version-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><!-- -->
+        <testng.version>6.14.3</testng.version><!--testng version-->
+        <selenium.version>4.8.0</selenium.version><!--selenium version-->
+        <seleniumChromeDriver.version>4.8.0</seleniumChromeDriver.version><!--selenium chrome driver version-->
+        <allureTestNG.version>2.20.1</allureTestNG.version><!--allure-testng version-->
+        <mavenSurefirePlugin.version>2.20</mavenSurefirePlugin.version><!--maven-surefire-plugin version-->
+        <aspectj.version>1.8.10</aspectj.version><!--used for allure-testng-->
     </properties>
 
     <dependencies>
@@ -19,21 +25,57 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.14.3</version>
+            <version>${testng.version}</version>
             <scope>compile</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.8.0</version>
+            <version>${selenium.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
-            <version>4.8.0</version>
+            <version>${seleniumChromeDriver.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>${allureTestNG.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <build>
+        <plugins>
+            <plugin><!--allure-testng-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${mavenSurefirePlugin.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>suites/testng.xml</suiteXmlFile><!--used to add the testng.xml suite file-->
+                    </suiteXmlFiles>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemProperties>
+                        <property><!--used to change the path of allure-results folder-->
+                            <name>allure.results.directory</name>
+                            <value>C:\Users\nadeesh\AppData\Local\Jenkins\.jenkins\workspace\QAAutomation\allure-results</value><!--path according to the jenkins configuration-->
+                        </property>
+                    </systemProperties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>
