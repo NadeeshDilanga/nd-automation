@@ -1,6 +1,9 @@
 package utilities;
 
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -38,12 +41,16 @@ public class Base {
         System.out.println("initializeWait method called");
         wait = new WebDriverWait(driver, Duration.ofSeconds(MAX_WAIT));
     }
-    public static void waitUntilElementIsPresent(By locator) throws Exception {
+    public void waitUntilElementIsPresent(By locator) throws Exception {
         System.out.println("waitUntilElementIsPresent method called");
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
-    public static void waitUntilElementIsClickable(By locator) throws Exception {
+    public void waitUntilElementIsClickable(By locator) throws Exception {
         System.out.println("waitUntilElementIsClickable method called");
         wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+    @Attachment(value = "Screenshot", type = "image/png", fileExtension = ".png")
+    public byte[] saveScreenshot() throws Exception {
+        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 }
