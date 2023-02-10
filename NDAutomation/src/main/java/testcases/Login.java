@@ -1,13 +1,15 @@
 package testcases;
 
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.LoginPage;
 import utilities.Base;
 
+@Epic("Epic - Log in to the system.")
+@Feature("Feature - User authentication.")
+@Story("Story - Log in to the system with user name and password.")
 public class Login extends Base {
     LoginPage loginPage;
     public By dashboardPageTitle = By.xpath("//div[@id='app']//h6[text()='Dashboard']");
@@ -20,6 +22,11 @@ public class Login extends Base {
     public void initializeTestCase() {
         loginPage = new LoginPage();
     }
+
+    @Description("Verify Login Test")
+    @Step("Steps - Enter user name, password and click 'Login' button.")
+    @Link(name = "sample link name", url = "https://docs.qameta.io/allure/#_testng")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(priority = 1)
     public void loginTest() throws Exception {
         loginPage.navigateToLoginPage();
@@ -29,8 +36,10 @@ public class Login extends Base {
         String expectedPageTitle = "Dashboard";
         waitUntilElementIsPresent(dashboardPageTitle);
         String actualPageTitle = driver.findElement(dashboardPageTitle).getText();
+        saveScreenshot();
         Assert.assertEquals(actualPageTitle, expectedPageTitle, "Login test failed.");
     }
+
     @Test(priority = 2)
     public void sampleRetryTest() {
         int x = 10/0;
