@@ -22,35 +22,36 @@ public class Base {
 
     @BeforeClass
     public void initializeFrameWork() throws Exception {
-        System.out.println("initializeFrameWork method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         initializeTestData();
         initializeChromeDriver();
         initializeWait();
     }
     public void initializeTestData() throws Exception {
-        System.out.println("initializeTestData method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         testDataProperties = new Property();
         testDataProperties.initializeProperty(testDataFilePath);
     }
     public void initializeChromeDriver() throws Exception {
-        System.out.println("initializeChromeDriver method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
     public void initializeWait() throws Exception {
-        System.out.println("initializeWait method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         wait = new WebDriverWait(driver, Duration.ofSeconds(MAX_WAIT));
     }
     public void waitUntilElementIsPresent(By locator) throws Exception {
-        System.out.println("waitUntilElementIsPresent method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
     public void waitUntilElementIsClickable(By locator) throws Exception {
-        System.out.println("waitUntilElementIsClickable method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
     @Attachment(value = "Screenshot", type = "image/png", fileExtension = ".png")
     public byte[] saveScreenshot() throws Exception {
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
     }
 }

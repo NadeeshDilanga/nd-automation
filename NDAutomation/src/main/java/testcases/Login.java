@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.LoginPage;
 import utilities.Base;
+import utilities.Log;
 
 @Epic("Epic - Log in to the system.")
 @Feature("Feature - User authentication.")
@@ -22,9 +23,13 @@ public class Login extends Base {
     public void initializeTestCase() {
         loginPage = new LoginPage();
     }
+    @AfterMethod
+    public void printLog() {
+        Log.printInfo();
+    }
 
     @Description("Verify Login Test")
-    @Step("Steps - Enter user name, password and click 'Login' button.")
+    @Step("Enter user name, password and click 'Login' button.")
     @Link(name = "sample link name", url = "https://docs.qameta.io/allure/#_testng")
     @Severity(SeverityLevel.CRITICAL)
     @Test(priority = 1)
