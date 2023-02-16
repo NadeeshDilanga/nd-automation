@@ -8,11 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Retry extends Base implements IRetryAnalyzer {
-    private static int retryCounter = 0;
-    private static int retryLimit;
-    private static List<String> retryExceptions = new ArrayList<String>();
-    private static Property retryDataProperty = new Property();
+    private int retryCounter = 0;
+    private int retryLimit;
+    private List<String> retryExceptions = new ArrayList<String>();
+    private Property retryDataProperty = new Property();
     public Retry() throws Exception {
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         System.out.println("Retry constructor called");
         retryDataProperty.initializeProperty(retryDataFilePath);
         retryLimit = Integer.parseInt(retryDataProperty.propertiesFile.getProperty("retryLimit"));
@@ -20,7 +21,6 @@ public class Retry extends Base implements IRetryAnalyzer {
     }
     @Override
     public boolean retry(ITestResult result) {
-        System.out.println("retry method called");
         String exceptionClassName = result.getThrowable().getClass().getName();
         if (!result.isSuccess() || retryExceptions.contains(exceptionClassName)) {
             if (retryCounter < retryLimit) {
