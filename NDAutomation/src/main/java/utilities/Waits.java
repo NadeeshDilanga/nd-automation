@@ -16,7 +16,7 @@ public class Waits {
      * webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div/span")));
      */
     public static void explicitWait(WebDriver driver, ExpectedCondition condition, int timeoutInSeconds) throws Exception {
-        System.out.println("explicitWait method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         webDriverWait.until(condition);
     }
@@ -28,7 +28,7 @@ public class Waits {
      * driver.findElement(By.id("userId"));
      */
     public static void implicitWait(WebDriver driver, By locator, int timeoutInSeconds) throws Exception {
-        System.out.println("implicitWait method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeoutInSeconds));
         driver.findElement(locator);
     }
@@ -47,7 +47,7 @@ public class Waits {
      *  });
      */
     public static void fluentWait(WebDriver driver, int timeoutInSeconds, int pollingTimeInSeconds, By locator) throws Exception {
-        System.out.println("fluentWait method called");
+        Log.logInfo(Thread.currentThread().getStackTrace()[1].getClassName()+" > "+Thread.currentThread().getStackTrace()[1].getMethodName());
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
                 .withTimeout(Duration.ofSeconds(timeoutInSeconds))
                 .pollingEvery(Duration.ofSeconds(pollingTimeInSeconds))
